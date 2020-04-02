@@ -29,7 +29,9 @@ this were to be true, this CVE would have severe implications over many
 filesystems.
 
 An alternative root-cause has been determined thanks to this program, and
-patches will soon be published.
+the patches are in progress:
+
+  * [RFC patches](https://lkml.kernel.org/r/20200402000002.7442-1-mcgrof@kernel.org)
 
 License
 -------
