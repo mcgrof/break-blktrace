@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 	struct stat statbuf;
 	struct blk_user_trace_setup buts;
 	bool assume_loop_exists = false;
+	bool skip_setup = false;
 	bool skip_teardown = false;
 	bool check_debugfs = false;
 	int c;
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
 	unsigned int i, x;
 	char fcheck[PATH_MAX];
 
-	while ((c = getopt(argc, argv, "ashc:dz:")) != EOF) {
+	while ((c = getopt(argc, argv, "asthc:dz:")) != EOF) {
 		switch (c) {
 		case 'a':
 			assume_loop_exists = true;
@@ -64,6 +65,9 @@ int main(int argc, char *argv[])
 			break;
 		case 's':
 			skip_teardown = true;
+			break;
+		case 't':
+			skip_setup = true;
 			break;
 		case 'z':
 			sleep = atoi(optarg);
@@ -147,7 +151,7 @@ int main(int argc, char *argv[])
 			.end_lba = 0,
 			.pid = (uint32_t)pid,
 		};
-		if (ioctl(loop_dev_fd, BLKTRACESETUP, &buts)) {
+		if (!skip_setup && ioctl(loop_dev_fd, BLKTRACESETUP, &buts)) {
 			perror("ioctl(/dev/loop0, BLKTRACESETUP)");
 			close(loop_dev_fd);
 			close(loop_ctl_fd);
