@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	int c;
 	unsigned int count = 10000, sleep = 0;
 	int ret;
-	unsigned int x;
+	unsigned int i, x;
 	char fcheck[PATH_MAX];
 
 	while ((c = getopt(argc, argv, "ashc:dz:")) != EOF) {
@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 	}
 
 	pid = getpid();
-	for (unsigned int i = 0; i < count; ++i) {
+	for (i = 0; i < count; ++i) {
 		printf("Iteration %d\n", i);
 
 		ret = stat("/dev/loop0", &statbuf);
